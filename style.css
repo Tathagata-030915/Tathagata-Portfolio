@@ -233,7 +233,8 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
 }
 
 #gpaCgpaChart {
-    max-width: 100%;
+    width: 100% !important;
+    height: 350px !important;
 }
 
 /* --- Contact & Footer --- */
