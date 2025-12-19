@@ -216,6 +216,27 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
 .edu-item p { color: var(--text-secondary); }
 .edu-item .grade { color: var(--accent); font-weight: 600; }
 
+/* --- GPA / CGPA Chart --- */
+.gpa-chart-container {
+    margin-top: 4rem;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.chart-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+#gpaCgpaChart {
+    width: 100% !important;
+    height: 350px !important;
+}
+
 /* --- Contact & Footer --- */
 .contact-wrapper { text-align: center; margin-bottom: 4rem; }
 .contact-info p { font-size: 1.2rem; margin-bottom: 1rem; color: var(--text-secondary); }
