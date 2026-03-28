@@ -1,0 +1,955 @@
+# Responsive Portfolio Enhancements Walkthrough
+
+## Summary of Changes
+
+The portfolio has been completely upgraded to be responsive and accessible across all devices, while further elevating its premium dark-theme aesthetic.
+
+### 1. Structure & SEO (`index.html`)
+- **SEO Optimization**: Added a `meta` description tag optimally tailored to highlight your expertise as a Data Analyst & AI Engineer. This helps with search engine indexing.
+- **Accessibility Improvements**: Upgraded the `.hamburger` menu element with a `role="button"`, `tabindex="0"`, and `aria-label` to support screen readers and keyboard navigation.
+
+### 2. Theming, Typography & Responsiveness (`style.css`)
+```diff:style.css
+/* --- Variables & Reset --- */
+:root {
+    --bg-color: #0b0d17;
+    --card-bg: #15192b;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent: #d4af37; /* Metallic Gold */
+    --accent-hover: #f1c40f;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+/* --- Typography --- */
+h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
+.highlight { color: var(--accent); }
+
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(11, 13, 23, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--font-heading);
+}
+
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 0 1rem;
+    background: radial-gradient(circle at center, #1b2236 0%, #0b0d17 70%);
+}
+
+.subtitle {
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.title {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.dynamic-text {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.description {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--text-secondary);
+}
+
+.hero-btns {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #000;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+.btn-secondary {
+    border: 1px solid var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* --- Profile Picture --- */
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    margin-bottom: 2rem;
+    box-shadow:
+        0 0 0 3px var(--accent),
+        0 15px 35px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+}
+
+/* --- Scroll Indicator --- */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    width: 30px;
+    height: 50px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 20px;
+}
+
+.scroll-indicator span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin: 10px auto;
+    animation: scroll 2s infinite;
+}
+
+@keyframes scroll {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+/* --- Sections --- */
+.section { padding: 6rem 5%; }
+.dark-bg { background: #080a12; }
+.container { max-width: 1100px; margin: 0 auto; }
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    margin: 1rem auto 0;
+}
+
+/* --- Projects --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+}
+
+/* --- GPA / CGPA Chart --- */
+.gpa-chart-container {
+    margin-top: 4rem;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.chart-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+#gpaCgpaChart {
+    width: 100% !important;
+    height: 350px !important;
+}
+
+/* --- Animations --- */
+.fade-in,
+.fade-up,
+.slide-in-left,
+.slide-in-right {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+}
+
+.fade-up { transform: translateY(30px); }
+.slide-in-left { transform: translateX(-50px); }
+.slide-in-right { transform: translateX(50px); }
+
+.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 768px) {
+    .title { font-size: 2.5rem; }
+    .nav-links { display: none; }
+}
+===
+/* --- Variables & Reset --- */
+:root {
+    --bg-color: #0b0d17;
+    --card-bg: #15192b;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent: #d4af37; /* Metallic Gold */
+    --accent-hover: #f1c40f;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+
+/* --- Typography --- */
+h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
+.highlight { color: var(--accent); }
+
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(11, 13, 23, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--font-heading);
+}
+
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 0 1rem;
+    background: radial-gradient(circle at center, #1b2236 0%, #0b0d17 70%);
+}
+
+.subtitle {
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.title {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.dynamic-text {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.description {
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    color: var(--text-secondary);
+}
+
+.hero-btns {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #000;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+.btn-secondary {
+    border: 1px solid var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* --- Profile Picture --- */
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    margin-bottom: 2rem;
+    box-shadow:
+        0 0 0 3px var(--accent),
+        0 15px 35px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+}
+
+/* --- Scroll Indicator --- */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    width: 30px;
+    height: 50px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 20px;
+}
+
+.scroll-indicator span {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin: 10px auto;
+    animation: scroll 2s infinite;
+}
+
+@keyframes scroll {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+/* --- Sections --- */
+.section { padding: 6rem 5%; }
+.dark-bg { background: #080a12; }
+.container { max-width: 1100px; margin: 0 auto; }
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    margin: 1rem auto 0;
+}
+
+/* --- Projects --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 2rem;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+}
+
+/* --- GPA / CGPA Chart --- */
+.gpa-chart-container {
+    margin-top: 4rem;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.chart-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+#gpaCgpaChart {
+    width: 100% !important;
+    height: 350px !important;
+}
+
+/* --- Animations --- */
+.fade-in,
+.fade-up,
+.slide-in-left,
+.slide-in-right {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+}
+
+.fade-up { transform: translateY(30px); }
+.slide-in-left { transform: translateX(-50px); }
+.slide-in-right { transform: translateX(50px); }
+
+.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* --- About & Skills --- */
+.about-text p { margin-bottom: 1.5rem; }
+.skills-container { margin-top: 2rem; }
+.skills-container h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.2rem; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.skill-tags span {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--accent);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    transition: 0.3s;
+}
+.skill-tags span:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+/* --- Experience Timeline --- */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    border-left: 2px solid rgba(212, 175, 55, 0.3);
+}
+.timeline-item {
+    margin-bottom: 3rem;
+    position: relative;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px; /* alignment with the left border */
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg-color);
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+}
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-content {
+    background: var(--card-bg);
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+.timeline-content:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+.timeline-content h3 { margin-bottom: 0.3rem; }
+.company, .date { display: block; font-size: 0.85rem; color: var(--accent); margin-bottom: 1rem; }
+.date { color: var(--text-secondary); margin-top: -0.8rem; margin-bottom: 1.2rem; font-style: italic; }
+
+/* --- Education List --- */
+.education-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.edu-item {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+}
+.edu-item:hover { border-color: var(--accent); transform: translateY(-5px); }
+.edu-item h3 { margin-bottom: 0.5rem; }
+.edu-item p { color: var(--text-secondary); margin-bottom: 0.5rem; }
+.edu-item .grade { color: var(--accent); font-weight: 600; margin-top: 1rem; }
+
+/* --- Contact Info --- */
+.contact-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+.contact-info {
+    text-align: center;
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    min-width: 300px;
+}
+.contact-info p { margin-bottom: 1rem; font-size: 1.1rem; }
+.contact-info i { color: var(--accent); margin-right: 0.5rem; }
+.social-links { margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; }
+.social-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+.social-icon:hover {
+    background: var(--accent);
+    color: #000;
+    transform: translateY(-3px);
+}
+.footer { text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; color: var(--text-secondary); }
+
+/* --- Hamburger Menu --- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1001;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-primary);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+.hamburger.active .line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.active .line:nth-child(2) { opacity: 0; }
+.hamburger.active .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* --- Mobile Responsive --- */
+@media (max-width: 1024px) {
+    .title { font-size: 3.2rem; }
+    .section { padding: 5rem 5%; }
+}
+
+@media (max-width: 768px) {
+    .hamburger { display: flex; }
+    
+    .nav-links {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100vh;
+        width: 250px;
+        background: rgba(11, 13, 23, 0.98);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        gap: 2rem;
+    }
+    .nav-links.active { right: 0; }
+    
+    .title { font-size: 2.5rem; }
+    .dynamic-text { font-size: 1.2rem; }
+    
+    .hero-btns {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .btn { width: 100%; max-width: 250px; text-align: center; }
+    
+    .project-grid, .education-list { grid-template-columns: 1fr; }
+    
+    .timeline { padding-left: 1.5rem; }
+    .timeline-item::before { left: -29px; }
+}
+
+@media (max-width: 480px) {
+    .title { font-size: 2rem; }
+    .section-title { font-size: 2rem; margin-bottom: 2rem; }
+    .profile-pic { width: 130px; height: 130px; margin-bottom: 1.5rem; }
+    .btn { font-size: 0.75rem; padding: 0.8rem 1.5rem; }
+    .contact-info { padding: 2rem 1rem; min-width: unset; width: 100%; }
+}
+```
+
+- **Timeline & Skill Polish**: Officially implemented robust styles for the Skills container, Experience Timeline, and Education lists—which were previously missing dedicated CSS. They now feature consistent accents and hover interactions.
+- **Mobile Menu**: Engineered a sleek, frosted-glass (`backdrop-filter: blur`) sliding navigation menu that elegantly pulls out from the right side of the screen on smaller devices.
+- **Hamburger Micro-Animations**: The mobile menu icon now morphs dynamically into a crisp 'X' via CSS transforms when activated.
+- **Comprehensive Media Queries**: Introduced specific breakpoints (`1024px`, `768px`, and `480px`) that carefully scale down typography, condense padding, stack grids, and align the timeline efficiently perfectly on smaller screens. 
+
+### 3. Interactive JavaScript Logic (`script.js`)
+```diff:script.js
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Intersection Observer for Scroll Animations
+    const observerOptions = {
+        threshold: 0.15, // Trigger when 15% of the element is visible
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, observerOptions);
+
+    // Select elements to animate
+    const animateElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .fade-up');
+    animateElements.forEach(el => observer.observe(el));
+
+    // Smooth Scroll for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Mobile Menu Toggle (Optional visual feedback)
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if(hamburger) {
+        hamburger.addEventListener('click', () => {
+            // For a full production site, you would toggle a class here to show/hide the menu
+            // Currently keeps the cinematic focus on desktop/clean layout
+            console.log("Menu clicked");
+        });
+    }
+
+    // GPA & CGPA Line Chart
+    const ctx = document.getElementById('gpaCgpaChart');
+
+    if (ctx && typeof Chart !== 'undefined') {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Sem I', 'Sem II', 'Sem III', 'Sem IV', 'Sem V', 'Sem VI', 'Sem VII'],
+                datasets: [
+                    {
+                        label: 'GPA',
+                        data: [8.10, 8.82, 8.00, 8.15, 8.05, 8.32, 9.00],
+                        borderColor: '#d4af37',
+                        backgroundColor: 'rgba(212, 175, 55, 0.15)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'CGPA',
+                        data: [8.10, 8.46, 8.31, 8.27, 8.23, 8.32, 8.32],
+                        borderColor: '#ffffff',
+                        borderDash: [6, 6],
+                        tension: 0.4,
+                        pointRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e0e0e0'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: {
+                        min: 7.5,
+                        max: 9.5,
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    }
+                }
+            }
+        });
+    }
+
+});
+===
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Intersection Observer for Scroll Animations
+    const observerOptions = {
+        threshold: 0.15, // Trigger when 15% of the element is visible
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, observerOptions);
+
+    // Select elements to animate
+    const animateElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .fade-up');
+    animateElements.forEach(el => observer.observe(el));
+
+    // Smooth Scroll for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Mobile Menu Toggle
+    const hamburger = document.getElementById('hamburger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-links a');
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Accessibility attribute update
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinksItems.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', false);
+            });
+        });
+    }
+
+    // GPA & CGPA Line Chart
+    const ctx = document.getElementById('gpaCgpaChart');
+
+    if (ctx && typeof Chart !== 'undefined') {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Sem I', 'Sem II', 'Sem III', 'Sem IV', 'Sem V', 'Sem VI', 'Sem VII'],
+                datasets: [
+                    {
+                        label: 'GPA',
+                        data: [8.10, 8.82, 8.00, 8.15, 8.05, 8.32, 9.00],
+                        borderColor: '#d4af37',
+                        backgroundColor: 'rgba(212, 175, 55, 0.15)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'CGPA',
+                        data: [8.10, 8.46, 8.31, 8.27, 8.23, 8.32, 8.32],
+                        borderColor: '#ffffff',
+                        borderDash: [6, 6],
+                        tension: 0.4,
+                        pointRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e0e0e0'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y: {
+                        min: 7.5,
+                        max: 9.5,
+                        ticks: { color: '#a0a0a0' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    }
+                }
+            }
+        });
+    }
+
+});
+```
+
+- **Mobile Menu Logic**: Swapped out the placeholder code segment with full toggle logic. The hamburger button and the navigation menu now correctly handle their `.active` state classes.
+- **Auto-Close Feature**: We added an event watcher so that clicking any internal anchor link (e.g., `#projects`) gracefully automatically closes the slide-out menu.
+- **Dynamic Aria States**: The JS updates the `aria-expanded` attributes in real-time, maintaining high accessibility standards.
+
+## Verification
+The site code is fully ready. If you open `index.html` in your browser:
+1. Try resizing the window continuously to observe how the layout fluidly breaks down to an optimized single-column layout.
+2. Expand the site navigation via the mobile menu icon to test the glassmorphism and toggle animations.
