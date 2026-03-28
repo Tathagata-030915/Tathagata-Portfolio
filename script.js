@@ -107,4 +107,84 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Custom Cursor Particle Effect ---
+    const canvas = document.getElementById('cursor-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particlesArray = [];
+        const colors = ['#d4af37', '#f1c40f', '#ffffff']; // Gold, Light Gold, White
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 2.5 + 1; // 1 to 3.5 px
+                this.speedX = Math.random() * 2 - 1; // -1 to +1
+                this.speedY = Math.random() * 2 - 1;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.life = 100; // Acts as opacity/lifespan
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.size *= 0.96; // Gradually shrink
+                this.life -= 1.5;  // Gradually fade
+            }
+            draw() {
+                ctx.globalAlpha = Math.max(0, this.life / 100);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1; // Reset
+            }
+        }
+
+        let mouse = { x: null, y: null };
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+            // Spawn 3 particles per mouse event for a thick stardust trail
+            for (let i = 0; i < 3; i++) {
+                particlesArray.push(new Particle(mouse.x, mouse.y));
+            }
+        });
+
+        // Touch support for mobile devices
+        window.addEventListener('touchmove', (event) => {
+            mouse.x = event.touches[0].clientX;
+            mouse.y = event.touches[0].clientY;
+            for (let i = 0; i < 3; i++) {
+                particlesArray.push(new Particle(mouse.x, mouse.y));
+            }
+        });
+
+        function handleParticles() {
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                // Remove microscopic or dead particles
+                if (particlesArray[i].size <= 0.2 || particlesArray[i].life <= 0) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            handleParticles();
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+    }
+
 });

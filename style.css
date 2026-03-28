@@ -25,6 +25,16 @@ body {
     overflow-x: hidden;
 }
 
+#cursor-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+}
+
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 ul { list-style: none; }
 
