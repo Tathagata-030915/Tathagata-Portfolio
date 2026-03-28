@@ -29,15 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile Menu Toggle (Optional visual feedback)
-    const hamburger = document.querySelector('.hamburger');
+    // Mobile Menu Toggle
+    const hamburger = document.getElementById('hamburger-menu');
     const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-links a');
 
-    if(hamburger) {
+    if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
-            // For a full production site, you would toggle a class here to show/hide the menu
-            // Currently keeps the cinematic focus on desktop/clean layout
-            console.log("Menu clicked");
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Accessibility attribute update
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinksItems.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', false);
+            });
         });
     }
 
