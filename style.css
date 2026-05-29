@@ -178,26 +178,30 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
 /* --- Scroll Indicator --- */
 .scroll-indicator {
     position: absolute;
-    bottom: 30px;
-    width: 30px;
-    height: 50px;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 46px;
     border: 2px solid var(--text-secondary);
     border-radius: 20px;
+    z-index: 1;
+    pointer-events: none; /* never blocks button clicks */
 }
 
 .scroll-indicator span {
     display: block;
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background: var(--accent);
     border-radius: 50%;
-    margin: 10px auto;
-    animation: scroll 2s infinite;
+    margin: 8px auto 0;
+    animation: scroll-bounce 2s infinite;
 }
 
-@keyframes scroll {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(20px); }
+@keyframes scroll-bounce {
+    0%   { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(18px); }
 }
 
 /* --- Sections --- */
