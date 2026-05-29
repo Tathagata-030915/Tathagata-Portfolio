@@ -192,6 +192,7 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
     border: 2px solid var(--text-secondary);
     border-radius: 20px;
     pointer-events: none;
+    margin-top: 2rem;   /* guaranteed gap from the buttons above */
     margin-bottom: 4px;
 }
 
