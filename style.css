@@ -8,13 +8,19 @@
     --accent-hover: #f1c40f;
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Poppins', sans-serif;
+    --navbar-h: 80px;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
     scroll-behavior: smooth;
+    /* Anchor links scroll to a position below the fixed navbar */
+    scroll-padding-top: var(--navbar-h);
 }
 
 body {
@@ -77,11 +83,13 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
 .hero {
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;        /* vertical main axis */
+    align-items: center;           /* horizontally centre children */
+    justify-content: center;       /* vertically centre within content box */
     text-align: center;
     position: relative;
-    padding: 5rem 1rem 2rem; /* top padding clears the fixed navbar */
+    /* padding-top is a hard floor — content can NEVER rise above it */
+    padding: calc(var(--navbar-h) + 2rem) 1rem 3rem;
     background: radial-gradient(circle at center, #1b2236 0%, #0b0d17 70%);
 }
 
