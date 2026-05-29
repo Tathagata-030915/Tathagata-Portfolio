@@ -61,33 +61,46 @@ document.addEventListener('DOMContentLoaded', () => {
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Sem I', 'Sem II', 'Sem III', 'Sem IV', 'Sem V', 'Sem VI', 'Sem VII'],
+                labels: ['Sem I', 'Sem II', 'Sem III', 'Sem IV', 'Sem V', 'Sem VI', 'Sem VII', 'Sem VIII'],
                 datasets: [
                     {
                         label: 'GPA',
-                        data: [8.10, 8.82, 8.00, 8.15, 8.05, 8.32, 9.00],
+                        data: [8.10, 8.82, 8.00, 8.15, 8.05, 8.32, 9.00, 10.00],
                         borderColor: '#d4af37',
                         backgroundColor: 'rgba(212, 175, 55, 0.15)',
                         tension: 0.4,
                         fill: true,
-                        pointRadius: 5
+                        pointRadius: 5,
+                        pointHoverRadius: 8
                     },
                     {
                         label: 'CGPA',
-                        data: [8.10, 8.46, 8.31, 8.27, 8.23, 8.32, 8.32],
-                        borderColor: '#ffffff',
+                        data: [8.10, 8.46, 8.31, 8.27, 8.23, 8.32, 8.32, 8.54],
+                        borderColor: '#a0c4ff',
                         borderDash: [6, 6],
+                        backgroundColor: 'rgba(160, 196, 255, 0.08)',
                         tension: 0.4,
-                        pointRadius: 4
+                        fill: true,
+                        pointRadius: 4,
+                        pointHoverRadius: 7
                     }
                 ]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
                         labels: {
-                            color: '#e0e0e0'
+                            color: '#e0e0e0',
+                            font: { size: 13 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.dataset.label}: ${context.parsed.y.toFixed(2)}`;
+                            }
                         }
                     }
                 },
@@ -98,8 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     y: {
                         min: 7.5,
-                        max: 9.5,
-                        ticks: { color: '#a0a0a0' },
+                        max: 10.5,
+                        ticks: { color: '#a0a0a0', stepSize: 0.5 },
                         grid: { color: 'rgba(255,255,255,0.05)' }
                     }
                 }

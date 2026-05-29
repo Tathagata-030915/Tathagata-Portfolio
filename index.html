@@ -24,6 +24,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="hamburger" id="hamburger-menu" aria-label="Toggle Navigation" role="button" tabindex="0">
@@ -69,9 +70,9 @@
         <div class="about-grid">
           <div class="about-text fade-in">
             <p>
-              I am a Computer Science & Engineering undergraduate at
+              I am a Computer Science &amp; Engineering undergraduate at
               <strong>Manipal University, Jaipur</strong> (Class of 2026) with a
-              CGPA of 8.32. My academic foundation is built on rigorous
+              CGPA of 8.54. My academic foundation is built on rigorous
               coursework in Data Structures, Algorithms, and Machine Learning.
             </p>
             <p>
@@ -192,10 +193,10 @@
           </div>
           <div class="project-card fade-up delay-300">
             <div class="card-content">
-              <h3>ESG-Assure: GenAI-Powered Supplier Risk & Regulatory Compliance Engine</h3>
-              <p class="tech-stack">Python | NLP | Generative AI | Groq | Data Analysis | Power Bi | Llama3 | Pandas | NumPy</p>
+              <h3>ESG-Assure: GenAI-Powered Supplier Risk &amp; Regulatory Compliance Engine</h3>
+              <p class="tech-stack">Python | NLP | Generative AI | Groq | Data Analysis | Power BI | Llama3 | Pandas | NumPy</p>
               <p>
-                ESG-Assure is an end-to-end automated audit engine. It ingests messy raw supplier data, applies statistical anomaly detection to find "Red Flags," and uses a Generative AI Agent (Llama 3 via Groq) to draft professional "Notices of Non-Compliance" grounded in specific regulatory frameworks.
+                ESG-Assure is an end-to-end automated audit engine. It ingests messy raw supplier data, applies statistical anomaly detection to find &ldquo;Red Flags,&rdquo; and uses a Generative AI Agent (Llama 3 via Groq) to draft professional &ldquo;Notices of Non-Compliance&rdquo; grounded in specific regulatory frameworks.
               </p>
               <a
                 href="https://github.com/Tathagata-030915/esg-assure-compliance-engine.git"
@@ -203,6 +204,23 @@
                 class="link-text"
               >
                 View on GitHub <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="project-card fade-up delay-400">
+            <div class="card-content">
+              <span class="thesis-badge">THESIS</span>
+              <h3>AI Resume ATS Analyzer</h3>
+              <p class="tech-stack">Python | BERT-base-cased | S-BERT | Llama 3.1 | Groq | Gradio</p>
+              <p>
+                Fine-tuned BERT-base-cased for NER on 274 annotated resumes, achieving F1: 0.75 and Recall: 0.82 for Skills &amp; Degree extraction. Constructed a 3-gate matching pipeline (Exact &rarr; Synonym Map &rarr; S-BERT) with Llama 3.1 for LLM-powered JD extraction and gap analysis; deployed on Hugging Face Spaces. Batch-processed 5,000+ resume PDFs into a 3,286-profile deduplicated candidate database with 82.6% degree detection accuracy.
+              </p>
+              <a
+                href="https://huggingface.co/spaces"
+                target="_blank"
+                class="link-text"
+              >
+                View on Hugging Face <i class="fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -217,7 +235,7 @@
           <div class="edu-item fade-in">
             <h3>B.Tech, Computer Science & Engineering</h3>
             <p>Manipal University, Jaipur | 2022 - 2026</p>
-            <p class="grade">CGPA: 8.32 (7th Semester)</p>
+            <p class="grade">CGPA: 8.54 (8th Semester)</p>
           </div>
           <div class="edu-item fade-in">
             <h3>Class XII (CBSE)</h3>
@@ -225,10 +243,10 @@
             <p class="grade">Percentage: 83%</p>
           </div>
         </div>
-      </div>
-      <div class="gpa-chart-container fade-up">
-        <h3 class="chart-title">Academic Performance Trend</h3>
-        <canvas id="gpaCgpaChart"></canvas>
+        <div class="gpa-chart-container fade-up">
+          <h3 class="chart-title">Academic Performance Trend</h3>
+          <canvas id="gpaCgpaChart"></canvas>
+        </div>
       </div>
     </section>
 

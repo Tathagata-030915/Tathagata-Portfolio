@@ -226,11 +226,64 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
     padding: 2rem;
     border-radius: 8px;
     transition: 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
     border-color: var(--accent);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+}
+
+.card-content h3 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+.tech-stack {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.thesis-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: #000;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 0.25rem 0.7rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    width: fit-content;
+}
+
+.link-text {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.link-text:hover {
+    color: var(--accent-hover);
+    gap: 0.7rem;
 }
 
 /* --- GPA / CGPA Chart --- */
@@ -251,7 +304,7 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
 
 #gpaCgpaChart {
     width: 100% !important;
-    height: 350px !important;
+    max-height: 380px;
 }
 
 /* --- Animations --- */
@@ -266,6 +319,11 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
 .fade-up { transform: translateY(30px); }
 .slide-in-left { transform: translateX(-50px); }
 .slide-in-right { transform: translateX(50px); }
+
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
 
 .visible {
     opacity: 1;
@@ -453,4 +511,8 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
     .profile-pic { width: 130px; height: 130px; margin-bottom: 1.5rem; }
     .btn { font-size: 0.75rem; padding: 0.8rem 1.5rem; }
     .contact-info { padding: 2rem 1rem; min-width: unset; width: 100%; }
+    .gpa-chart-container { padding: 1.25rem; margin-top: 2rem; }
+    .chart-title { font-size: 1.2rem; }
+    #gpaCgpaChart { max-height: 250px; }
+    .thesis-badge { font-size: 0.65rem; }
 }
