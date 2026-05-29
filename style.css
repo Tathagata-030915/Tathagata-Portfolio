@@ -75,13 +75,13 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
 
 /* --- Hero Section --- */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
-    padding: 0 1rem;
+    padding: 5rem 1rem 2rem; /* top padding clears the fixed navbar */
     background: radial-gradient(circle at center, #1b2236 0%, #0b0d17 70%);
 }
 
