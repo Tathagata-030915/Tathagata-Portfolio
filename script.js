@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     {
                         label: 'CGPA',
-                        data: [8.10, 8.46, 8.31, 8.27, 8.23, 8.32, 8.32, 8.54],
+                        data: [8.10, 8.46, 8.30, 8.26, 8.22, 8.23, 8.31, 8.43],
                         borderColor: '#a0c4ff',
                         borderDash: [6, 6],
                         backgroundColor: 'rgba(160, 196, 255, 0.08)',
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         grid: { color: 'rgba(255,255,255,0.05)' }
                     },
                     y: {
-                        min: 7.5,
+                        min: 7.8,
                         max: 10.5,
                         ticks: { color: '#a0a0a0', stepSize: 0.5 },
                         grid: { color: 'rgba(255,255,255,0.05)' }
