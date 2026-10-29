@@ -262,6 +262,27 @@ h1, h2, h3 { font-family: var(--font-heading); color: var(--text-primary); }
     width: fit-content;
 }
 
+.current-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 0.25rem 0.7rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 8px rgba(34, 197, 94, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.7); }
+}
+
 .link-text {
     color: var(--accent);
     font-size: 0.85rem;
